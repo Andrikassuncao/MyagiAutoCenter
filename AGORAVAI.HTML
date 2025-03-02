@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Cliente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .row div {
+            width: 48%;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .alterar {
+            background-color: #007bff;
+        }
+        .alterar:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Cadastro de Cliente</h1>
+    <form id="formulario">
+        <div class="row">
+            <div>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite o nome" required>
+            </div>
+            <div>
+                <label for="telefone">Telefone:</label>
+                <input type="tel" id="telefone" name="telefone" placeholder="Digite o telefone" required>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label for="veiculo">Veículo:</label>
+                <input type="text" id="veiculo" name="veiculo" placeholder="Digite o veículo" required>
+            </div>
+            <div>
+                <label for="ano">Ano:</label>
+                <input type="number" id="ano" name="ano" placeholder="Digite o ano" required>
+            </div>
+        </div>
+        <div class="row">
+            <div>
+                <label for="placa">Placa:</label>
+                <input type="text" id="placa" name="placa" placeholder="Digite a placa" required>
+            </div>
+        </div>
+        <div style="text-align: center;">
+            <button type="button" onclick="salvarDados()">SALVAR</button>
+        </div>
+    </form>
+
+    <script>
+        function salvarDados() {
+            // Coleta os dados do formulário
+            const nome = document.getElementById('nome').value;
+            const telefone = document.getElementById('telefone').value;
+            const veiculo = document.getElementById('veiculo').value;
+            const ano = document.getElementById('ano').value;
+            const placa = document.getElementById('placa').value;
+
+            // Envia os dados para o Google Apps Script
+            fetch('https://script.google.com/macros/s/AKfycby8qRhBq1PXGT5AmdAF3BVFtllV2_O66VsgNen7jpLWqdNsMrRYuJ_7tFxii3mRFwQ8Ug/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    nome: nome,
+                    telefone: telefone,
+                    veiculo: veiculo,
+                    ano: ano,
+                    placa: placa,
+                }),
+            })
+            .then(response => response.text())
+            .then(message => {
+                alert(message); // Exibe a mensagem de sucesso
+                document.getElementById('formulario').reset(); // Limpa o formulário
+            })
+            .catch(error => {
+                console.error('Erro ao salvar os dados:', error);
+                alert('Ocorreu um erro ao salvar os dados.');
+            });
+        }
+    </script>
+</body>
+</html>
