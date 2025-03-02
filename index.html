@@ -50,12 +50,6 @@
         button:hover {
             background-color: #218838;
         }
-        .alterar {
-            background-color: #007bff;
-        }
-        .alterar:hover {
-            background-color: #0056b3;
-        }
     </style>
 </head>
 <body>
@@ -94,14 +88,12 @@
 
     <script>
         function salvarDados() {
-            // Coleta os dados do formulário
             const nome = document.getElementById('nome').value;
             const telefone = document.getElementById('telefone').value;
             const veiculo = document.getElementById('veiculo').value;
             const ano = document.getElementById('ano').value;
             const placa = document.getElementById('placa').value;
 
-            // Envia os dados para o Google Apps Script
             fetch('https://script.google.com/macros/s/AKfycby8qRhBq1PXGT5AmdAF3BVFtllV2_O66VsgNen7jpLWqdNsMrRYuJ_7tFxii3mRFwQ8Ug/exec', {
                 method: 'POST',
                 headers: {
@@ -117,8 +109,8 @@
             })
             .then(response => response.text())
             .then(message => {
-                alert(message); // Exibe a mensagem de sucesso
-                document.getElementById('formulario').reset(); // Limpa o formulário
+                alert(message);
+                document.getElementById('formulario').reset();
             })
             .catch(error => {
                 console.error('Erro ao salvar os dados:', error);
